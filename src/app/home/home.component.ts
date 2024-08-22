@@ -19,8 +19,9 @@ export class HomeComponent {
 
   showTaskDialog() {
     this.ref = this.dialogService.open(AddTaskDialogComponent, {
-      header: 'Select a Product',
+      header: 'Add Task',
       width: '500px',
+      height: '450px',  
       modal: true,
     });
     this.ref.onClose.subscribe((newTask: Task) => {

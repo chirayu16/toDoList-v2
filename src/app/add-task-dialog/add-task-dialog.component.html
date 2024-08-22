@@ -1,6 +1,29 @@
-<div>
-    <form></form>
+  <div class="container">
+    <p-floatLabel>
+      <input pInputText id="taskName" [(ngModel)]="task.name" />
+      <label for="taskName">Task Name</label>
+    </p-floatLabel>
+    
+    <p-floatLabel>
+      <p-calendar 
+        [(ngModel)]="task.dueDate" 
+        appendTo="body"
+        [showButtonBar]="false"
+      ></p-calendar>
+      <label for="calendar">Select a Date</label>
+    </p-floatLabel>
+    
+    <p-floatLabel>
+      <p-dropdown
+      [(ngModel)]="task.priority"
+      [options]="priorityOptions"
+    ></p-dropdown>
+    <label for="dropdown">Select Priority</label>
+    </p-floatLabel>
+    
   </div>
+  
+  
   <div class="p-dialog-footer">
     <p-button
       label="Cancel"
