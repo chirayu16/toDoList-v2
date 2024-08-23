@@ -1,7 +1,30 @@
-/* Add-task-dialog.component.scss */
 .container {
     display:flex;
     flex-direction: column;
-    gap: 12px;
-    justify-content: center;
+    align-items: stretch;
+    justify-content: start;
 }
+
+.p-dialog-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    margin-top: 16px;
+    position: sticky;
+    bottom: 0;
+}
+
+.error-message {
+    margin-top: -16px;
+    font-size: small;
+    color: #dc3545;
+}
+
+.p-button-secondary {
+    margin-top: 16px;
+    margin-right: 24px;
+  }
+  
+.p-button-primary {
+    margin-top: 16px;
+  }

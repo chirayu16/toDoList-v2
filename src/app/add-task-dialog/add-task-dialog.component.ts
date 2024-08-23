@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { DropdownModule } from 'primeng/dropdown';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-add-task-dialog',
@@ -18,7 +19,8 @@ import { DropdownModule } from 'primeng/dropdown';
     FloatLabelModule,
     CalendarModule,
     DropdownModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CommonModule
   ],
   providers: [DialogService],
   templateUrl: './add-task-dialog.component.html',
@@ -29,16 +31,20 @@ export class AddTaskDialogComponent implements OnInit {
   value: string = '';
   date: Date | undefined;
 
-
   task: Task = {
     name: '',
     status: 'OPEN',
-    dueDate: null,
+    dueDate: new Date(),
     priority: '', 
   };
 
 
   priorityOptions: ('P0' | 'P1' | 'P2')[] = ['P0', 'P1', 'P2'];
+  statusOptions: any[] = [
+    { label: 'Open', value: 'OPEN' },
+    { label: 'In progress', value: 'IN_PROGRESS' },
+    { label: 'Complete', value: 'COMPLETE' },
+  ];
 
   constructor(public dynamicDialogRef: DynamicDialogRef) {}
 
@@ -47,9 +53,13 @@ export class AddTaskDialogComponent implements OnInit {
   }
 
   onSave() {
+    if (!this.task.name || !this.task.dueDate || !this.task.priority) {
+      return;
+    }
     this.dynamicDialogRef.close(this.task);
   }
 
   ngOnInit(): void {
+    this.task;
   }
 }

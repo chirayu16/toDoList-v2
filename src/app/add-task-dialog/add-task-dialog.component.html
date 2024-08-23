@@ -1,40 +1,93 @@
   <div class="container">
     <p-floatLabel>
-      <input pInputText id="taskName" [(ngModel)]="task.name" />
+      <input pInputText class="task-name-input" [(ngModel)]="task.name" name="taskName"
+      #taskName="ngModel"
+      required/>
       <label for="taskName">Task Name</label>
     </p-floatLabel>
+    <div *ngIf="taskName.invalid && taskName.touched" class="error-message">
+      Task Name is mandatory.
+    </div>
     
     <p-floatLabel>
       <p-calendar 
+        [styleClass]="'custom-calendar'"
         [(ngModel)]="task.dueDate" 
+        name="dueDate"
+        #dueDate="ngModel"
+        required
         appendTo="body"
-        [showButtonBar]="false"
-      ></p-calendar>
-      <label for="calendar">Select a Date</label>
+        [showIcon]="true"
+      />
+      <label for="calendar">Calendar</label>
     </p-floatLabel>
+    <div *ngIf="dueDate.invalid && dueDate.touched" class="error-message">
+      Due Date is mandatory.
+    </div>    
     
     <p-floatLabel>
       <p-dropdown
+      appendTo="body"
       [(ngModel)]="task.priority"
+      name="priority"
+      #priority="ngModel"
+      required
       [options]="priorityOptions"
     ></p-dropdown>
     <label for="dropdown">Select Priority</label>
     </p-floatLabel>
-    
-  </div>
-  
+    <div *ngIf="priority.invalid && priority.touched" class="error-message">
+      Priority is mandatory.
+    </div>
+
+    <p-floatLabel>
+      <p-dropdown
+        [(ngModel)]="task.status"
+        [options]="statusOptions"
+        placeholder="Select status"
+        optionLabel="label"
+        optionValue="value"
+      >
+        <ng-template let-option pTemplate="selectedItem">
+          <span *ngIf="option.value === 'Open'">
+            <i class="pi pi-circle-off mr-4"></i>
+          </span>
+          <span *ngIf="option.value === 'In progress'">
+            <i class="pi pi-spin pi-spinner mr-2"></i>
+          </span>
+          <span *ngIf="option.value === 'Complete'">
+            <i class="pi pi-check-circle mr-2"></i>
+          </span>
+          {{ option.label }}
+        </ng-template>
+        <ng-template let-option pTemplate="item">
+          <span *ngIf="option.value === 'Open'">
+            <i class="pi pi-circle-off mr-2"></i>
+          </span>
+          <span *ngIf="option.value === 'In progress'">
+            <i class="pi pi-spin pi-spinner mr-2"></i>
+          </span>
+          <span *ngIf="option.value === 'Complete'">
+            <i class="pi pi-check-circle mr-2"></i>
+          </span>
+          {{ option.label }}
+        </ng-template>
+      </p-dropdown>
+      <label for="status">Status</label>
+    </p-floatLabel>
   
   <div class="p-dialog-footer">
     <p-button
       label="Cancel"
       icon="pi pi-times"
-      class="p-button-secondary"
+      styleClass="p-button-secondary"
       (click)="onCancel()"
     ></p-button>
     <p-button
       label="Save"
       icon="pi pi-check"
-      class="p-button-primary"
       (click)="onSave()"
+      styleClass="p-button-primary"
     ></p-button>
   </div>
+</div>
