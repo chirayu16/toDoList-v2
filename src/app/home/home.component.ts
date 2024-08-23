@@ -1,13 +1,15 @@
+import { TasksService } from './../services/tasks.service';
 import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { AddTaskDialogComponent } from '../add-task-dialog/add-task-dialog.component';
 import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
 import { Task } from '../models/task.model';
+import { TaskListComponent } from '../task-list/task-list.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ButtonModule, AddTaskDialogComponent],
+  imports: [ButtonModule, AddTaskDialogComponent, TaskListComponent],
   providers: [DialogService],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -15,20 +17,34 @@ import { Task } from '../models/task.model';
 export class HomeComponent {
   ref: DynamicDialogRef | undefined;
   openTasks: Task[] = [];
-  constructor(private dialogService: DialogService) {}
+  inProgressTasks: Task[] = [];
+  completeTasks: Task[] = [];
+  
+  constructor(private tasksService: TasksService, private dialogService: DialogService) {}
 
   showTaskDialog() {
     this.ref = this.dialogService.open(AddTaskDialogComponent, {
-      header: 'Select a Product',
-      width: '500px',
+      header: 'Add Task',
+      width: '400px',  
       modal: true,
     });
     this.ref.onClose.subscribe((newTask: Task) => {
-      console.log('dialog data:', newTask);
-      this.openTasks.push(newTask);
+      if(newTask){
+        this.openTasks = [newTask, ...this.openTasks];
+      }
     });
   }
 
-  ngOnInit(): void {}
+  getAllTasks() {
+    this.tasksService.getTasks().subscribe((allTasks) => {
+      this.openTasks = this.tasksService.filterTasksByStatus(allTasks, 'OPEN');
+      console.log(this.openTasks);
+      this.completeTasks = this.tasksService.filterTasksByStatus(allTasks,'COMPLETE');
+      this.inProgressTasks = this.tasksService.filterTasksByStatus(allTasks,'IN_PROGRESS');
+    });
 
+  }
+  ngOnInit(): void {
+    this.getAllTasks();
+  }
 }

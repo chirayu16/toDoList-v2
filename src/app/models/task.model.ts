@@ -1,6 +1,7 @@
 export interface Task {
+    id?: string;
     name: string;
-    dueDate: Date;
+    dueDate: Date | null;
     status: 'OPEN' | 'IN_PROGRESS' | 'COMPLETE';
-    priority: 'P0' | 'P1' | 'P2';
+    priority: 'P0' | 'P1' | 'P2' | '';
 }
