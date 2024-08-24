@@ -120,6 +120,8 @@ export class TasksService {
     return of(tasks);
   }
 
+  
+
   filterTasksByStatus = (allTasks: Task[], status: string) => {
     return allTasks.filter((task) => task.status === status);
   };
