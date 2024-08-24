@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Task } from '../models/task.model'; // Import the Task interface
+import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { Task } from '../models/task.model';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
@@ -22,12 +22,10 @@ import { CommonModule } from '@angular/common';
     ReactiveFormsModule,
     CommonModule
   ],
-  providers: [DialogService],
   templateUrl: './add-task-dialog.component.html',
   styleUrl: './add-task-dialog.component.scss',
 })
 export class AddTaskDialogComponent implements OnInit {
-  ref: DynamicDialogRef | undefined;
   value: string = '';
   date: Date | undefined;
 
@@ -37,7 +35,7 @@ export class AddTaskDialogComponent implements OnInit {
     dueDate: new Date(),
     priority: '', 
   };
-
+  today: Date = new Date();
 
   priorityOptions: ('P0' | 'P1' | 'P2')[] = ['P0', 'P1', 'P2'];
   statusOptions: any[] = [
@@ -46,20 +44,27 @@ export class AddTaskDialogComponent implements OnInit {
     { label: 'Complete', value: 'COMPLETE' },
   ];
 
-  constructor(public dynamicDialogRef: DynamicDialogRef) {}
+  constructor(
+    public dynamicDialogRef: DynamicDialogRef,
+    public config: DynamicDialogConfig
+  ) {}
+
+  ngOnInit(): void {
+    if (this.config.data?.task) {
+      this.task = { ...this.config.data.task };
+      this.date = new Date(this.task.dueDate);
+    }
+  }
 
   onCancel() {
     this.dynamicDialogRef.close();
   }
 
   onSave() {
-    if (!this.task.name || !this.task.dueDate || !this.task.priority) {
+    if (!this.task.name || !this.date || !this.task.priority) {
       return;
     }
+    this.task.dueDate = this.date;
     this.dynamicDialogRef.close(this.task);
-  }
-
-  ngOnInit(): void {
-    this.task;
   }
 }

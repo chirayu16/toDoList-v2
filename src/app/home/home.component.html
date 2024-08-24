@@ -1,18 +1,24 @@
 <div class="header">
     <p-button
-    class = "add-task-name"
-    label = "Add Task"
-    icon = "pi pi-plus"
-    (click)="showTaskDialog()"
-></p-button></div>
-<div class="tasks-body">
+      class="add-task-button"
+      label="Add Task"
+      icon="pi pi-plus"
+      (click)="showTaskDialog()"
+    ></p-button>
+    <!-- search -->
+  </div>
+  <div class="tasks-body">
     <div class="open-tasks">
-        <app-task-list [tasks]="openTasks"></app-task-list>
+      <span class="heading">Open Tasks</span>
+      <app-task-list [tasks]="openTasks" (editTask)="editTask($event)"></app-task-list>
     </div>
     <div class="in-progress-tasks">
-        <app-task-list [tasks]="inProgressTasks"></app-task-list>
+      <span class="heading">In-progress Tasks</span>
+      <app-task-list [tasks]="inProgressTasks" (editTask)="editTask($event)"></app-task-list>
     </div>
     <div class="complete-tasks">
-        <app-task-list [tasks]="completeTasks"></app-task-list>
+      <span class="heading">Completed Tasks</span>
+      <app-task-list [tasks]="completeTasks" (editTask)="editTask($event)"></app-task-list>
     </div>
-</div>
+  </div>
+  
