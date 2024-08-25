@@ -62,6 +62,14 @@ export class HomeComponent implements OnInit {
   });
 }
 
+deleteTask(task: Task) {
+  const list = this.getTaskListByStatus(task.status);
+  const index = list.findIndex(t => t.id==task.id);
+  if(index!=-1) {
+    list.splice(index, 1);
+  }
+}
+
   updateTask(oldTask: Task, updatedTask: Task) {
     const oldList = this.getTaskListByStatus(oldTask.status);
     const oldIndex = oldList.findIndex(t => t.id === oldTask.id);
@@ -94,7 +102,6 @@ getTaskListByStatus(status: string): Task[] {
 getAllTasks() {
   this.tasksService.getTasks().subscribe((allTasks) => {
     this.openTasks = this.tasksService.filterTasksByStatus(allTasks, 'OPEN');
-    console.log(this.openTasks);
     this.completeTasks = this.tasksService.filterTasksByStatus(allTasks,'COMPLETE');
     this.inProgressTasks = this.tasksService.filterTasksByStatus(allTasks,'IN_PROGRESS');
   });

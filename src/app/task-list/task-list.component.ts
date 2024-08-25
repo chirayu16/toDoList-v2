@@ -23,12 +23,18 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 export class TaskListComponent implements OnChanges {
   @Input() tasks: Task[] = [];
   @Output() editTask = new EventEmitter<Task>();
+  @Output() deleteTask = new EventEmitter<Task>();
+
 
   taskCardStyleClass: string = 'task-card-content';
   ref: DynamicDialogRef | undefined;
 
   onEditTask(task: Task) {
     this.editTask.emit(task);
+  }
+
+  onDeleteTask(task: Task) {
+    this.deleteTask.emit(task);
   }
 
   setCardStyleClass(status: string) {

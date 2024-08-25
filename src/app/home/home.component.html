@@ -10,15 +10,15 @@
   <div class="tasks-body">
     <div class="open-tasks">
       <span class="heading">Open Tasks</span>
-      <app-task-list [tasks]="openTasks" (editTask)="editTask($event)"></app-task-list>
+      <app-task-list [tasks]="openTasks" (editTask)="editTask($event)" (deleteTask)="deleteTask($event)"></app-task-list>
     </div>
     <div class="in-progress-tasks">
       <span class="heading">In-progress Tasks</span>
-      <app-task-list [tasks]="inProgressTasks" (editTask)="editTask($event)"></app-task-list>
+      <app-task-list [tasks]="inProgressTasks" (editTask)="editTask($event)" (deleteTask)="deleteTask($event)"></app-task-list>
     </div>
     <div class="complete-tasks">
       <span class="heading">Completed Tasks</span>
-      <app-task-list [tasks]="completeTasks" (editTask)="editTask($event)"></app-task-list>
+      <app-task-list [tasks]="completeTasks" (editTask)="editTask($event)" (deleteTask)="deleteTask($event)"></app-task-list>
     </div>
   </div>
   
