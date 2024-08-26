@@ -1,4 +1,4 @@
-// import { TasksService } from './../services/tasks.service';
+import { ToastModule } from 'primeng/toast';
 import { Component, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { AddTaskDialogComponent } from '../add-task-dialog/add-task-dialog.component';
@@ -7,12 +7,15 @@ import { Task } from '../models/task.model';
 import { TaskListComponent } from '../task-list/task-list.component';
 import { SearchFilterComponent } from "../search-filter/search-filter.component";
 import { TasksService } from '../services/tasks.service';
+import { MessageService } from 'primeng/api';
+
+
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ButtonModule, AddTaskDialogComponent, TaskListComponent, SearchFilterComponent],
-  providers: [DialogService,TasksService],
+  imports: [ButtonModule, AddTaskDialogComponent, TaskListComponent, SearchFilterComponent, ToastModule],
+  providers: [DialogService,TasksService, MessageService],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -27,7 +30,7 @@ export class HomeComponent implements OnInit {
   searchText: string = '';
   priority: string = '';
   
-  constructor(private tasksService: TasksService, private dialogService: DialogService) {}
+  constructor(private tasksService: TasksService, private dialogService: DialogService, private messageService: MessageService) {}
 
   showTaskDialog() {
     this.ref = this.dialogService.open(AddTaskDialogComponent, {
@@ -39,6 +42,7 @@ export class HomeComponent implements OnInit {
       if(newTask){
         this.allTasks.unshift(newTask);
         this.applyFilters();
+        this.messageService.add({severity:'success', summary: 'Success', detail: 'Task saved successfully'});
       }
     });
   }

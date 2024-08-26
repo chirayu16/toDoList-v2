@@ -8,6 +8,9 @@ import { CalendarModule } from 'primeng/calendar';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { DropdownModule } from 'primeng/dropdown';
 import { CommonModule } from '@angular/common';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+
 
 @Component({
   selector: 'app-add-task-dialog',
@@ -20,10 +23,13 @@ import { CommonModule } from '@angular/common';
     CalendarModule,
     DropdownModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    FormsModule,
+    ToastModule
   ],
   templateUrl: './add-task-dialog.component.html',
   styleUrl: './add-task-dialog.component.scss',
+  providers:[MessageService]
 })
 export class AddTaskDialogComponent implements OnInit {
   value: string = '';
@@ -49,7 +55,8 @@ export class AddTaskDialogComponent implements OnInit {
 
   constructor(
     public dynamicDialogRef: DynamicDialogRef,
-    public config: DynamicDialogConfig
+    public config: DynamicDialogConfig,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -70,4 +77,5 @@ export class AddTaskDialogComponent implements OnInit {
     this.task.dueDate = this.date;
     this.dynamicDialogRef.close(this.task);
   }
+  
 }

@@ -3,12 +3,14 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
+import { TooltipModule } from 'primeng/tooltip';
+
 
 
 @Component({
   selector: 'app-search-filter',
   standalone: true,
-  imports: [InputTextModule, FormsModule, CommonModule, DropdownModule],
+  imports: [InputTextModule, FormsModule, CommonModule, DropdownModule, TooltipModule],
   templateUrl: './search-filter.component.html',
   styleUrl: './search-filter.component.scss'
 })
