@@ -1,3 +1,4 @@
+<p-toast position="top-left"></p-toast>
 <div class="header">
   <app-search-filter     
   (searchEvent)="onSearchTextChanged($event)"
@@ -7,8 +8,8 @@
     class="add-task-button"
     label="Add Task"
     icon="pi pi-plus"
-    (click)="showTaskDialog()"
-  ></p-button>
+    (click)="showTaskDialog()">
+  </p-button>
 </div>
 <div class="tasks-body">
   <div class="open-tasks">

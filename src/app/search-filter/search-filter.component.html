@@ -1,5 +1,16 @@
 <div class="container">
-    <input class="input-container" type="text" pInputText [(ngModel)]="searchText" placeholder="Search" (input)= "onSearch()">
+    <input 
+    class="input-container" 
+    type="text" 
+    pInputText 
+    pTooltip="Search Tasks" 
+    tooltipPosition="top"
+    showDelay="1000" 
+    hideDelay="300"
+    [(ngModel)]="searchText" 
+    placeholder="Search" 
+    (input)= "onSearch()">
+
     <div class="card flex justify-content-center">
         <p-dropdown 
             [options]="priorityFilterOptions" 
