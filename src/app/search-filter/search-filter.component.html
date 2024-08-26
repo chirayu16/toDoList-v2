@@ -1,0 +1,12 @@
+<div class="container">
+    <input class="input-container" type="text" pInputText [(ngModel)]="searchText" placeholder="Search" (input)= "onSearch()">
+    <div class="card flex justify-content-center">
+        <p-dropdown 
+            [options]="priorityFilterOptions" 
+            [(ngModel)]="priority" 
+            placeholder="Priority"
+            (onChange)= "onPriorityChange()"
+            [showClear]="true">
+        </p-dropdown>
+    </div>
+</div>

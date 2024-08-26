@@ -6,6 +6,7 @@ import {
   SimpleChanges,
   Output
 } from '@angular/core';
+
 import { Task } from '../models/task.model';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
