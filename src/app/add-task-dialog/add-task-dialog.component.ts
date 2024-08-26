@@ -33,11 +33,14 @@ export class AddTaskDialogComponent implements OnInit {
     name: '',
     status: 'OPEN',
     dueDate: new Date(),
-    priority: '', 
+    priority: '',
+    createdAt: new Date(),
+    updatedAt: new Date(), 
   };
   today: Date = new Date();
 
   priorityOptions: ('P0' | 'P1' | 'P2')[] = ['P0', 'P1', 'P2'];
+
   statusOptions: any[] = [
     { label: 'Open', value: 'OPEN' },
     { label: 'In progress', value: 'IN_PROGRESS' },

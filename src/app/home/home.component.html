@@ -1,24 +1,27 @@
 <div class="header">
-    <p-button
-      class="add-task-button"
-      label="Add Task"
-      icon="pi pi-plus"
-      (click)="showTaskDialog()"
-    ></p-button>
-    <!-- search -->
+  <app-search-filter     
+  (searchEvent)="onSearchTextChanged($event)"
+  (priorityEvent)="onPriorityChanged($event)">
+  </app-search-filter>
+  <p-button
+    class="add-task-button"
+    label="Add Task"
+    icon="pi pi-plus"
+    (click)="showTaskDialog()"
+  ></p-button>
+</div>
+<div class="tasks-body">
+  <div class="open-tasks">
+    <span class="heading">Open Tasks</span>
+    <app-task-list [tasks]="openTasks" (editTask)="editTask($event)" (deleteTask)="deleteTask($event)"></app-task-list>
   </div>
-  <div class="tasks-body">
-    <div class="open-tasks">
-      <span class="heading">Open Tasks</span>
-      <app-task-list [tasks]="openTasks" (editTask)="editTask($event)" (deleteTask)="deleteTask($event)"></app-task-list>
-    </div>
-    <div class="in-progress-tasks">
-      <span class="heading">In-progress Tasks</span>
-      <app-task-list [tasks]="inProgressTasks" (editTask)="editTask($event)" (deleteTask)="deleteTask($event)"></app-task-list>
-    </div>
-    <div class="complete-tasks">
-      <span class="heading">Completed Tasks</span>
-      <app-task-list [tasks]="completeTasks" (editTask)="editTask($event)" (deleteTask)="deleteTask($event)"></app-task-list>
-    </div>
+  <div class="in-progress-tasks">
+    <span class="heading">In-progress Tasks</span>
+    <app-task-list [tasks]="inProgressTasks" (editTask)="editTask($event)" (deleteTask)="deleteTask($event)"></app-task-list>
   </div>
+  <div class="complete-tasks">
+    <span class="heading">Completed Tasks</span>
+    <app-task-list [tasks]="completeTasks" (editTask)="editTask($event)" (deleteTask)="deleteTask($event)"></app-task-list>
+  </div>
+</div>
   
