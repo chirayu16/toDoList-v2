@@ -1,4 +1,4 @@
-<p-toast position="top-left"></p-toast>
+<p-toast position="top-right"></p-toast>
 <div class="header">
   <app-search-filter     
   (searchEvent)="onSearchTextChanged($event)"
@@ -11,6 +11,14 @@
     (click)="showTaskDialog()">
   </p-button>
 </div>
+
+<div class="card">
+  <p-meterGroup [value]="value"
+  labelPosition="start" 
+  labelOrientation="vertical"
+   />
+</div>
+
 <div class="tasks-body">
   <div class="open-tasks">
     <span class="heading">Open Tasks</span>

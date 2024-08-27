@@ -8,17 +8,20 @@ import { TaskListComponent } from '../task-list/task-list.component';
 import { SearchFilterComponent } from "../search-filter/search-filter.component";
 import { TasksService } from '../services/tasks.service';
 import { MessageService } from 'primeng/api';
-
+import { MeterGroupModule } from 'primeng/metergroup';
+import { DragDropModule } from 'primeng/dragdrop';
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ButtonModule, AddTaskDialogComponent, TaskListComponent, SearchFilterComponent, ToastModule],
-  providers: [DialogService,TasksService, MessageService],
+  imports: [AddTaskDialogComponent, TaskListComponent, SearchFilterComponent, ButtonModule, ToastModule, MeterGroupModule],
+  providers: [DialogService,TasksService, MessageService, DragDropModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
+
+
 export class HomeComponent implements OnInit {
   ref: DynamicDialogRef | undefined;
   allTasks: Task[] = [];
@@ -29,6 +32,12 @@ export class HomeComponent implements OnInit {
 
   searchText: string = '';
   priority: string = '';
+
+  value = [
+    { label: 'Apps', color: '#34d399', value: 0 },
+    { label: 'Messages', color: '#fbbf24', value: 0 },
+    { label: 'Media', color: '#60a5fa', value: 0 },
+  ]
   
   constructor(private tasksService: TasksService, private dialogService: DialogService, private messageService: MessageService) {}
 
@@ -38,7 +47,7 @@ export class HomeComponent implements OnInit {
       width: '400px',  
       modal: true,
     });
-    this.ref.onClose.subscribe((newTask: Task) => {
+    this.ref.onClose.subscribe((newTask: Task) => {  //adding new task
       if(newTask){
         this.allTasks.unshift(newTask);
         this.applyFilters();
@@ -47,28 +56,27 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  onSearchTextChanged(searchText: string) {
+  onSearchTextChanged(searchText: string) { //fn to handle input event
     this.searchText = searchText;
     this.applyFilters();
   }
   
-  onPriorityChanged(priority: string) {
+  onPriorityChanged(priority: string) {  //fn to handle input event
     this.priority = priority;
     this.applyFilters();
   }
 
   applyFilters() {
-    this.filteredTasks = this.allTasks.filter(task => {
-      const matchesSearch = this.searchText ? 
-        task.name.toLowerCase().includes(this.searchText.toLowerCase()) : true;
-      
-      const matchesPriority = this.priority ? 
+    this.filteredTasks = this.allTasks.filter(task => { //filter method creates new array containing only the tasks 
+      const matchesSearch = this.searchText ?           //that satisfy both the search text and priority criteria.
+        task.name.toLowerCase().includes(this.searchText.toLowerCase()) : true;//checks whether substring is present
+      const matchesPriority = this.priority ? //similarly for priority, if no priority means it will return true
         task.priority === this.priority : true;
       
       return matchesSearch && matchesPriority;
     });
 
-    this.filteredTasks.sort((a, b) => {
+    this.filteredTasks.sort((a, b) => {    //sort lists based on creation date
       const dateA = a.updatedAt || a.createdAt;
       const dateB = b.updatedAt || b.createdAt;
       return dateB.getTime() - dateA.getTime();
@@ -77,13 +85,34 @@ export class HomeComponent implements OnInit {
     this.updateFilteredTaskLists();
   }
 
-  updateFilteredTaskLists() {
+  updateFilteredTaskLists() {  //categorizes the already filtered tasks 
     this.openTasks = this.filteredTasks.filter(task => task.status === 'OPEN');
     this.inProgressTasks = this.filteredTasks.filter(task => task.status === 'IN_PROGRESS');
     this.completeTasks = this.filteredTasks.filter(task => task.status === 'COMPLETE');
+    this.value = [
+      {
+        label: 'Open Tasks',
+        color: '#34d399',
+        value: this.calculatePercentage(this.openTasks.length, this.filteredTasks.length),
+      },
+      {
+        label: 'In-Progress Tasks',
+        color: '#fbbf24',
+        value: this.calculatePercentage(this.inProgressTasks.length, this.filteredTasks.length),
+      },
+      {
+        label: 'Completed Tasks',
+        color: '#60a5fa',
+        value: this.calculatePercentage(this.completeTasks.length, this.filteredTasks.length),
+      },
+    ];
   }
 
-  editTask(task: Task) {
+  calculatePercentage(part: number, total: number): number {
+    return total > 0 ? Math.round((part / total) * 100) : 0;
+  }
+
+  editTask(task: Task) {  //edit task dialogue
     this.ref = this.dialogService.open(AddTaskDialogComponent, {
       header: 'Edit Task',
       width: '400px',
@@ -93,14 +122,18 @@ export class HomeComponent implements OnInit {
     this.ref.onClose.subscribe((updatedTask: Task) => {
       if (updatedTask) {
         this.updateTask(task, updatedTask);
+        this.messageService.add({severity:'success', summary: 'Success', detail: 'Task updated successfully'});
+          //calls update task fn
       }
     });
   }
 
-  deleteTask(task: Task) {
+  deleteTask(task: Task) {  //if delete button is pressed 
     const index = this.allTasks.findIndex(t => t.id == task.id);
-    if(index != -1) {
+    if(index != -1) {             
       this.allTasks.splice(index, 1);
+      this.messageService.add({severity:'error', summary: 'Error', detail: 'Task deleted successfully'});
+      // removes one element from the position specified by index
     }
     this.applyFilters();
   }
@@ -108,8 +141,8 @@ export class HomeComponent implements OnInit {
   updateTask(oldTask: Task, updatedTask: Task) {
     const index = this.allTasks.findIndex(t => t.id === oldTask.id);
     if (index !== -1) {
-      this.allTasks.splice(index,1);
-      this.allTasks.unshift(updatedTask);
+      this.allTasks.splice(index,1); //removes old copy
+      this.allTasks.unshift(updatedTask);//adds new task
     }
     this.applyFilters();
   }
