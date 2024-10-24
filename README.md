@@ -1,27 +1,44 @@
-# ToDoListV2
+# ToDoList
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.7.
+This is an enhanced to-do list application built with Angular and PrimeNG, allowing users to manage tasks with added functionalities like setting priority, due date, and status.
 
-## Development server
+## Demo
+Check out the live app here: [ToDoList v2 Live](https://todolist-v2-app.netlify.app/)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Features
+- Add new tasks with a priority, due date, and status (Open, In Progress, Completed).
+- Edit or delete tasks.
+- Tasks are categorized by their status (Open, In Progress, Completed).
+- Filter tasks by search, priority, and status.
+- User-friendly UI with **PrimeNG** components.
 
-## Code scaffolding
+## Technologies
+- **Angular**
+- **PrimeNG** for UI components
+- **Netlify** for deployment
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Installation
 
-## Build
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/chirayu16/toDoList-v2.git
+   cd toDoList-v2
+2. Install dependencies:
+   ```bash
+   npm install
+3. Run the development server:
+   ```bash
+    ng serve
+  Navigate to http://localhost:4200/.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Usage
+- Add tasks with priority, due date, and status.
+- Edit or delete tasks.
+- Filter them by priority and search.
 
-## Running unit tests
+## Running Tests
+- Unit tests: ng test
+- End-to-end tests: ng e2e
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## License
+- This project is licensed under the MIT License.
