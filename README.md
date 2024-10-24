@@ -3,7 +3,7 @@
 This is an enhanced to-do list application built with Angular and PrimeNG, allowing users to manage tasks with added functionalities like setting priority, due date, and status.
 
 ## Demo
-Check out the live app here: [ToDoList v2 Live](https://todolist-v2-app.netlify.app/)
+Check out the live app here: [ToDoList Live](https://todolist-v2-app.netlify.app/)
 
 ## Features
 - Add new tasks with a priority, due date, and status (Open, In Progress, Completed).
