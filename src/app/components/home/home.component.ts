@@ -3,10 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { AddTaskDialogComponent } from '../add-task-dialog/add-task-dialog.component';
 import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
-import { Task } from '../models/task.model';
+import { Task } from '../../models/task.model';
 import { TaskListComponent } from '../task-list/task-list.component';
 import { SearchFilterComponent } from "../search-filter/search-filter.component";
-import { TasksService } from '../services/tasks.service';
+import { TasksService } from '../../services/tasks.service';
 import { MessageService } from 'primeng/api';
 import { MeterGroupModule } from 'primeng/metergroup';
 import { DragDropModule } from 'primeng/dragdrop';
@@ -15,7 +15,7 @@ import { DragDropModule } from 'primeng/dragdrop';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [AddTaskDialogComponent, TaskListComponent, SearchFilterComponent, ButtonModule, ToastModule, MeterGroupModule],
+  imports: [TaskListComponent, SearchFilterComponent, ButtonModule, ToastModule, MeterGroupModule],
   providers: [DialogService,TasksService, MessageService, DragDropModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
