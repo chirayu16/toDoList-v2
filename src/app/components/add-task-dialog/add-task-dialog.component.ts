@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { Task } from '../models/task.model';
+import { Task } from '../../models/task.model';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
