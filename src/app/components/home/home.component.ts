@@ -67,10 +67,14 @@ export class HomeComponent implements OnInit {
   }
 
   applyFilters() {
-    this.filteredTasks = this.allTasks.filter(task => { //filter method creates new array containing only the tasks 
-      const matchesSearch = this.searchText ?           //that satisfy both the search text and priority criteria.
-        task.name.toLowerCase().includes(this.searchText.toLowerCase()) : true;//checks whether substring is present
-      const matchesPriority = this.priority ? //similarly for priority, if no priority means it will return true
+    this.filteredTasks = this.allTasks.filter(task => { 
+      //filter method creates new array containing only the tasks 
+      const matchesSearch = this.searchText ?           
+      //that satisfy both the search text and priority criteria.
+        task.name.toLowerCase().includes(this.searchText.toLowerCase()) : true;
+        //checks whether substring is present
+      const matchesPriority = this.priority ? 
+      //similarly for priority, if no priority means it will return true
         task.priority === this.priority : true;
       
       return matchesSearch && matchesPriority;
