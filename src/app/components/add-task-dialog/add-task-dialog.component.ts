@@ -56,7 +56,6 @@ export class AddTaskDialogComponent implements OnInit {
   constructor(
     public dynamicDialogRef: DynamicDialogRef,
     public config: DynamicDialogConfig,
-    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {

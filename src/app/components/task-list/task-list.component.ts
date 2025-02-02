@@ -4,7 +4,7 @@ import {
   Input,
   OnChanges,
   SimpleChanges,
-  Output
+  Output,
 } from '@angular/core';
 
 import { Task } from '../../models/task.model';
@@ -25,7 +25,6 @@ export class TaskListComponent implements OnChanges {
   @Input() tasks: Task[] = [];
   @Output() editTask = new EventEmitter<Task>();
   @Output() deleteTask = new EventEmitter<Task>();
-
 
   taskCardStyleClass: string = 'task-card-content';
   ref: DynamicDialogRef | undefined;
@@ -51,7 +50,6 @@ export class TaskListComponent implements OnChanges {
         break;
     }
   }
-
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['tasks'].currentValue?.length > 0) {
